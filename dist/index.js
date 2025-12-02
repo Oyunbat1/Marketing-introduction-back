@@ -28,4 +28,3 @@ async function startServer() {
     });
 }
 startServer().catch((err) => console.error(err));
-//# sourceMappingURL=index.js.map

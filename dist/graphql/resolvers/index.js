@@ -3,4 +3,3 @@ const resolvers = {
     Mutation
 };
 export default resolvers;
-//# sourceMappingURL=index.js.map

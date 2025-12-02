@@ -26,4 +26,3 @@ const typeDefs = gql `
   }
 `;
 export default typeDefs;
-//# sourceMappingURL=schema.js.map

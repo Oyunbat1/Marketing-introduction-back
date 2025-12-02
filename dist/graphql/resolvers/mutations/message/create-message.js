@@ -5,4 +5,3 @@ export const createMessage = async (_, args, {}) => {
     const savedMessage = await newMessage.save();
     return savedMessage;
 };
-//# sourceMappingURL=create-message.js.map
