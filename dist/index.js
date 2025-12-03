@@ -24,7 +24,7 @@ async function startServer() {
             credentials: true,
         },
     }).then(({ url }) => {
-        console.log(`🚀 Server ready at ${url}`);
+        console.log(`🚀 Server read at ${url}`);
     });
 }
 startServer().catch((err) => console.error(err));
