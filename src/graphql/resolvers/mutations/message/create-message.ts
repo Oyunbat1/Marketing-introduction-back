@@ -1,4 +1,3 @@
-// MODEL орж ирнэ.
 import Message from "../../../../model/Message.js"
 
 export const createMessage = async (_: any, args: any, { }: any) => {

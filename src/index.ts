@@ -17,20 +17,19 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    cors: {
-    origin: ['https://your-frontend-domain.com', 'https://studio.apollographql.com'], // Add your actual frontend domain here
-    credentials: true,
-  },
   });
 
   const PORT = process.env.PORT || 4000;
 server.listen({
   port: PORT,
   path: '/graphql',
-  cors: {
-    origin: FRONTEND_URL,
-    credentials: true,
-  },
+ cors: {
+    origin: [
+      'https://agency-beta-kohl.vercel.app/',
+      'https://studio.apollographql.com'
+    ],
+    credentials: true
+  }
 }).then(({ url }) => {
   console.log(`🚀 Server read at ${url}`);
 });
