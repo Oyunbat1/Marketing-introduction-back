@@ -7,7 +7,8 @@ import typeDefs from "./schema/schema.js";
 import resolvers from "./graphql/resolvers/index.js";
 const MONGODB_URI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 4000;
-const FRONTEND_URL = 'https://agency-beta-kohl.vercel.app/'; // Your Vercel URL
+const FRONTEND_URL_PROD = 'https://agency-beta-kohl.vercel.app/'; // Your Vercel URL
+const FRONTEND_URL_DEV = 'http://localhost:3000';
 async function startServer() {
     if (!MONGODB_URI) {
         throw new Error("MONGODB_URI environment variable is not defined.");
@@ -17,7 +18,7 @@ async function startServer() {
     const app = express(); // ⬅️ Initialize Express
     // 1. Configure CORS Middleware
     app.use(cors({
-        origin: FRONTEND_URL,
+        origin: [FRONTEND_URL_PROD, FRONTEND_URL_DEV],
         credentials: true
     }));
     const server = new ApolloServer({
