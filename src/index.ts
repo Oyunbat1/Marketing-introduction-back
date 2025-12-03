@@ -25,9 +25,7 @@ server.listen({
   path: '/graphql',
  cors: {
     origin: [
-      'https://agency-beta-kohl.vercel.app/',
-      'https://studio.apollographql.com'
-    ],
+      'https://agency-4m4fr4awv-oyunbats-projects.vercel.app/'],
     credentials: true
   }
 }).then(({ url }) => {
