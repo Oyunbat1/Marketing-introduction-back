@@ -8,8 +8,8 @@ import resolvers from "./graphql/resolvers/index.js";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 4000;
-const FRONTEND_URL_PROD = 'https://agency-beta-kohl.vercel.app/'; // Your Vercel URL
-const FRONTEND_URL_DEV = 'http://localhost:3000';
+// const FRONTEND_URL_PROD = 'https://agency-beta-kohl.vercel.app/'; // Your Vercel URL
+// const FRONTEND_URL_DEV = 'http://localhost:3000';
 
 async function startServer() {
   if (!MONGODB_URI) {
@@ -22,10 +22,11 @@ async function startServer() {
   const app = express(); // ⬅️ Initialize Express
   
   // 1. Configure CORS Middleware
-  app.use(cors({
-      origin: [FRONTEND_URL_PROD,FRONTEND_URL_DEV], 
-      credentials: true
-  }));
+// DANGEROUS CODE - DO NOT USE THIS IN PRODUCTION IF YOU NEED AUTHENTICATION
+app.use(cors({
+    origin: '*', // Allows all origins
+    credentials: false // Must be false or omitted when origin is '*'
+}));
 
   const server = new ApolloServer({
     typeDefs,
