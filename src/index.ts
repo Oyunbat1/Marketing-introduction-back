@@ -17,6 +17,10 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    cors: {
+    origin: ['https://your-frontend-domain.com', 'https://studio.apollographql.com'], // Add your actual frontend domain here
+    credentials: true,
+  },
   });
 
   const PORT = process.env.PORT || 4000;
