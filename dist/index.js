@@ -1,30 +1,35 @@
 import "dotenv/config";
-import { ApolloServer } from "apollo-server";
+import express from 'express'; // ⬅️ NEW
+import { ApolloServer } from "apollo-server-express"; // ⬅️ CHANGED
 import mongoose from "mongoose";
+import cors from 'cors'; // ⬅️ NEW
 import typeDefs from "./schema/schema.js";
 import resolvers from "./graphql/resolvers/index.js";
 const MONGODB_URI = process.env.MONGODB_URI;
-const FRONTEND_URL = process.env.FRONTEND_URL || "*";
+const PORT = process.env.PORT || 4000;
+const FRONTEND_URL = 'https://agency-beta-kohl.vercel.app/'; // Your Vercel URL
 async function startServer() {
     if (!MONGODB_URI) {
         throw new Error("MONGODB_URI environment variable is not defined.");
     }
     await mongoose.connect(MONGODB_URI);
     console.log("✅ Connected to MongoDB");
+    const app = express(); // ⬅️ Initialize Express
+    // 1. Configure CORS Middleware
+    app.use(cors({
+        origin: FRONTEND_URL,
+        credentials: true
+    }));
     const server = new ApolloServer({
         typeDefs,
         resolvers,
     });
-    const PORT = process.env.PORT || 4000;
-    server.listen({
-        port: PORT,
-        path: '/graphql',
-        cors: {
-            origin: FRONTEND_URL,
-            credentials: true,
-        },
-    }).then(({ url }) => {
-        console.log(`🚀 Server read at ${url}`);
+    await server.start(); // ⬅️ Start Apollo Server
+    // 2. Apply Apollo Middleware to a specific path
+    server.applyMiddleware({ app, path: '/graphql' });
+    app.listen(PORT, () => {
+        console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+        console.log(`The official endpoint on Render is at: ${server.graphqlPath}`);
     });
 }
 startServer().catch((err) => console.error(err));
